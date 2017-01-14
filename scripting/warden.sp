@@ -3,7 +3,7 @@
 #include <cstrike>
 #include "colors_csgo.inc"
 
-#define PLUGIN_VERSION   "1.0.5"
+#define PLUGIN_VERSION   "1.0.6"
 #define CHAT_TAG_PREFIX "[{pink}WARDEN{default}] "
 #define CHAT_TAG_PREFIX_PLAIN "[WARDEN] "
 
@@ -222,7 +222,7 @@ public int WardenSelectionMenuHandler(Menu menu, MenuAction action, int client, 
 public Action playerDeath(Handle event, const char[] name, bool dontBroadcast) 
 {
   if (!isEnabled) 
-    return Plugin_Handled;
+    return Plugin_Continue;
     
   int client = GetClientOfUserId(GetEventInt(event, "userid"));
   
@@ -242,20 +242,20 @@ public Action playerDeath(Handle event, const char[] name, bool dontBroadcast)
     CreateTimer(MENU_POPUP_TIME, wardenMenuShowTimer);
   }
   
-  return Plugin_Handled;
+  return Plugin_Continue;
 }
 
 public Action playerTeam(Handle event, const char[] name, bool dontBroadcast) 
 {
   if (!isEnabled) 
-    return Plugin_Handled;
+    return Plugin_Continue;
     
   int client = GetClientOfUserId(GetEventInt(event, "userid"));
   
   if(client == Warden)
     RemoveTheWarden(client);
     
-  return Plugin_Handled;
+  return Plugin_Continue;
 }
 
 public void OnClientDisconnect(int client)
